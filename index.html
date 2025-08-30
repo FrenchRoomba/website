@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<title>FrenchRoomba</title>
+<style type="text/css">
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  overflow: hidden;
+}
+section {
+  background-image: url("bg.gif");
+  position: relative;
+}
+img {
+  position: absolute;
+  width: 200px;
+  transform: rotate(-45deg);
+}
+section {
+font-family: sans-serif;
+text-align: center;
+font-weight: bold;
+}
+h1 {
+  margin-top: 0px;
+  margin-bottom: 50px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 10rem;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: -4px 4px #ef3550,
+               -8px 8px #f48fb1,
+               -12px 12px #7e57c2,
+               -16px 16px #2196f3,
+               -20px 20px #26c6da,
+               -24px 24px #43a047,
+               -28px 28px #eeff41,
+               -32px 32px #f9a825,
+               -36px 36px #ff5722;
+}
+
+</style>
+</head>
+<body>
+<section>
+<h1>good at CTF</h1>
+<img src="roomba.png" class="logo">
+</section>
+
+<script>
+const section = document.querySelector("section");
+const logo = document.querySelector(".logo");
+const FPS = 60;
+section.style.height = window.innerHeight + "px";
+section.style.width = window.innerWidth + "px";
+
+let xPosition = 10;
+let yPosition = 10;
+let xSpeed = 4;
+let ySpeed = 4;
+function update() {
+  logo.style.left = xPosition + "px";
+  logo.style.top = yPosition + "px";
+}
+
+setInterval(() => {
+  var turnt = 0;
+  if (xPosition + logo.clientWidth >= window.innerWidth || xPosition <= 0) {
+    xSpeed = -xSpeed;
+    turnt = 1;
+  }
+  if (yPosition + logo.clientHeight >= window.innerHeight || yPosition <= 0) {
+    ySpeed = -ySpeed;
+    turnt = 1;
+  }
+
+  if (turnt == 1) {
+    logo.style.transform = 'rotate(' + (Math.atan2(ySpeed, xSpeed) - 1.5) + 'rad)';
+  }
+
+  xPosition += xSpeed;
+  yPosition += ySpeed;
+  update();
+}, 1000 / FPS);
+
+window.addEventListener("resize", () => {
+  xPosition = 10;
+  yPosition = 10;
+
+  section.style.height = window.innerHeight + "px";
+  section.style.width = window.innerWidth + "px";
+});
+
+</script>
+<script>if (navigator.getEnvironmentIntegrity) { document.querySelector('body').remove(); }</script></body>
+</html>
